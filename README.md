@@ -164,8 +164,7 @@ pip install -r requirements.txt
 - 💻 AI/ML Developer & python Developer
 - 📱 Android Developer
 
-GitHub:
-https://github.com/twi99
+linkdin:https://www.linkedin.com/in/tinkal-kachariya-23b6b9351?utm_source=share_via&utm_content=profile&utm_medium=member_android
 
 ---
 
