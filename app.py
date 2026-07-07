@@ -8,6 +8,7 @@ from utils import format_price
 from model import predict_house_price
 import charts
 from pdf_report import create_pdf
+from ai_helper import get_ai_response
 st.set_page_config(
     page_title="🏠 House Price Prediction",
     page_icon="🏠",
@@ -231,8 +232,30 @@ if predict:
         prefarea,
         furnishing
     )
-
     formatted_price = format_price(prediction)
+
+    prompt = f"""
+You are an AI Real Estate Advisor.
+
+Analyze the following property.
+
+Area: {area} sq.ft
+Bedrooms: {bedrooms}
+Bathrooms: {bathrooms}
+Stories: {stories}
+Parking: {parking}
+
+Predicted Price: ₹{formatted_price}
+
+Explain:
+1. Why this price was predicted.
+2. Whether it is a good investment.
+3. Suggest improvements to increase the value.
+
+Keep the response simple and professional.
+"""
+
+    ai_response = get_ai_response(prompt)
 
     st.balloons()
 
@@ -240,10 +263,9 @@ if predict:
 
     st.markdown("## 💰 Prediction Result")
 
-    col1, col2 = st.columns([2,1])
+    col1, col2 = st.columns([2, 1])
 
     with col1:
-
         st.markdown(f"""
         <div style="
             background:linear-gradient(135deg,#2563eb,#1d4ed8);
@@ -258,22 +280,19 @@ if predict:
         """, unsafe_allow_html=True)
 
     with col2:
-
-        st.metric(
-            "🎯 Model Accuracy",
-            "64.95%"
-        )
-
+        st.metric("🎯 Model Accuracy", "64.95%")
         st.progress(65)
 
         if prediction >= 10000000:
             st.success("🏆 Luxury House")
-
         elif prediction >= 5000000:
             st.info("🏡 Mid Range House")
-
         else:
             st.warning("💰 Budget House")
+
+    st.markdown("---")
+    st.subheader("🤖 AI Property Analysis")
+    st.write(ai_response)
 
     create_pdf(
         "Prediction_Report.pdf",
@@ -286,7 +305,6 @@ if predict:
     )
 
     with open("Prediction_Report.pdf", "rb") as pdf:
-
         st.download_button(
             "📄 Download PDF Report",
             pdf,
@@ -294,7 +312,6 @@ if predict:
             mime="application/pdf",
             use_container_width=True
         )
-
 st.markdown("---")
 
 # ==========================
@@ -433,7 +450,7 @@ AI / Machine Learning Enthusiast
 kachariyatinkal2005@gmail.com
 
 🌐 GitHub:
-https://github.com/twi99
+https://github.com/twi99/House_Price_Predictor
 
 💼 LinkedIn:
 https://www.linkedin.com/in/tinkal-kachariya-23b6b9351?utm_source=share_via&utm_content=profile&utm_medium=member_android
