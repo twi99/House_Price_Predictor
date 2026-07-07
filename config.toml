@@ -1,0 +1,6 @@
+[theme]
+base = "light"
+primaryColor = "hsl(221, 57%, 73%)"
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#F5F5F5"
+textColor = "hsl(204, 65%, 70%)"
